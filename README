@@ -13,7 +13,7 @@ From the Gold layer, clean and aggregated data is loaded into Azure SQL Database
 
 ##  Architecture
 
-![Pipeline Diagram](pipeline.png)
+![Pipeline Diagram](kripto-folder/pipeline.png.png)
         
 
 graph TD
