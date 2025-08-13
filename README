@@ -1,0 +1,72 @@
+# Kripto Data Engineering Pipeline
+
+A Databricks + Delta Lake project for streaming cryptocurrency market data from Bronze → Silver → Gold layers, then loading into Azure SQL and visualizing in Power BI.
+
+##  Overview
+
+This project implements a medallion architecture (Bronze, Silver, Gold) to process real-time cryptocurrency market data in Databricks, using PySpark and Delta Lake on Azure Data Lake Storage Gen2.
+
+The pipeline ingests raw JSON API data into the Bronze layer, cleans and standardizes it in the Silver layer, and aggregates it into business-ready tables in the Gold layer.
+
+From the Gold layer, clean and aggregated data is loaded into Azure SQL Database for creation of data warehouse, modelling and easy integration with Power BI for analytics and reporting.
+
+
+##  Architecture
+
+![Pipeline Diagram](pipeline.png)
+        
+
+graph TD
+    A[Crypto API Data] -->|Raw JSON| B[Bronze Layer<br>(Raw Storage with Autoloader)]
+    B -->|Cleansed & Enriched| C[Silver Layer<br>(Delta Tables)]
+    C -->|Aggregated Metrics| D[Gold Layer<br>(Analytics-Ready)]
+    D --> E[Azure SQL Database]
+    E --> F[Power BI / BI Tools]
+
+
+
+Project Structure
+
+kripto-pipeline/
+│
+├── bronze_layer/        # Ingestion scripts for raw API data
+├── silver_layer/        # Cleaning, schema alignment, enrichment
+├── gold_layer/          # Aggregations & business metrics
+├── README.md            # Project documentation
+
+
+
+Data Flow Summary
+Bronze Layer:
+Uses Databricks Autoloader to incrementally ingest raw JSON data from the cryptocurrency API into Delta Lake tables.
+Schema is semi-structured JSON, stored as Delta tables.
+
+Silver Layer:
+Applies schema validation, data cleaning, and deduplication.
+Adds ingested_time column for audit tracking.
+
+Gold Layer:
+Performs aggregations such as market cap rankings, price changes, and category-level summaries.
+Outputs clean, analytics-ready Delta tables for reporting.
+Loads aggregated data into Azure SQL Database for analytics.
+
+Azure SQL & Power BI:
+Data from Gold layer is pushed to Azure SQL Database.
+Power BI connects to Azure SQL for business analytics and interactive reporting.
+
+Technologies Used
+Databricks (PySpark, Delta Lake, Autoloader)
+
+Azure Data Lake Storage Gen2
+
+Azure SQL Database
+
+Power BI
+
+Python 3.x
+
+
+
+
+
+
