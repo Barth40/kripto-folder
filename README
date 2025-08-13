@@ -13,8 +13,7 @@ From the Gold layer, clean and aggregated data is loaded into Azure SQL Database
 
 ##  Architecture
 
-![Pipeline Diagram](Kripto-folder/Pipeline.png.png)
-        
+![Pipeline Diagram](kripto-folder/pipeline.png.png)
 
 graph TD
     A[Crypto API Data] -->|Raw JSON| B[Bronze Layer<br>(Raw Storage with Autoloader)]
